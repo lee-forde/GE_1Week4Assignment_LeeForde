@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroController : MonoBehaviour {
-    public float speed;             //Floating point variable to store the player's movement speed.
-
+    public float speed;
     private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
+    public bool canTurnSwitchOn;
+    public bool switchOn;
+    public LevelManager Lm;
+    public CoinController cc;
 
     // Use this for initialization
     void Start()
@@ -28,4 +31,46 @@ public class HeroController : MonoBehaviour {
         //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
         rb2d.AddForce(movement * speed);
     }
+     void Update()
+    {
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && canTurnSwitchOn == true && cc.Coin == true && switchOn == false)
+        {
+
+            Lm.TurnSwitchOn();
+            switchOn = true;
+
+        }
+
+
+        else if (Input.GetKeyDown(KeyCode.Space) && canTurnSwitchOn == true && switchOn == true)
+        {
+
+            Lm.TurnSwitchOff();
+            switchOn = false;
+
+        }
+    }
+
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.tag == "Switch")
+            {
+             
+                canTurnSwitchOn = true;
+            }
+        }
+
+
+
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (col.gameObject.tag == "Switch")
+            {
+              
+                canTurnSwitchOn = false;
+            }
+        }
+    
 }

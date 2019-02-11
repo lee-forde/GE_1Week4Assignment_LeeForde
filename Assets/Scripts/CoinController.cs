@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
-    public bool Coin;
+    public bool Coin = false;
+    public SpriteRenderer SR;
     // Use this for initialization
     void Start()
     {
@@ -22,7 +23,9 @@ public class CoinController : MonoBehaviour
     {
         if (other.gameObject.tag == "Hero")
         {
-            Destroy(gameObject);
+            SR = GetComponent<SpriteRenderer>();
+            SR.enabled = false;
+            Coin = true;
         }
 
     }

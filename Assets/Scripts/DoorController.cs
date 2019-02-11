@@ -7,6 +7,7 @@ public class DoorController : MonoBehaviour {
     public float openYPos;
     public float closedYPos;
     public float doorDelay;
+  
 
 
     void Awake()
